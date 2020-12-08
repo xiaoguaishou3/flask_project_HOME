@@ -6,7 +6,7 @@ import redis
 class Config(object):
     """配置信息"""
 
-    SECRET_KEY = 'ASDAXCWE5ERTFG%%DAS34'
+    SECRET_KEY = 'ASDAXCWE5ERTFG%%DAS34'  # 加盐加密法
     USERNAME = 'root'
     PASSWORD = 'root'
     HOSTNAME = '127.0.0.1'
@@ -18,10 +18,13 @@ class Config(object):
     REDIS_PORT = 6379
 
     # flask-session
+    # 将 session 保存在redis中
     SESSION_TYPE = 'redis'
 
     SESSION_REDIS = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
+    # 是否对会话进行签名
     SESSION_USE_SIGNER = True
+    # 存活时间
     PERMANENT_SESSION_LIFETIME = 8640   # 单位是秒
 
     # 数据库

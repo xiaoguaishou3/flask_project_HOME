@@ -5,7 +5,7 @@ import redis
 class Config(object):
     """配置信息"""
 
-    # SECRET_KEY = 'ASDAXCWE5ERTFG%%DAS34'
+    # TODO: SECRET_KEY = 'ASDAXCWE5ERTFG%%DAS34'
     USERNAME = 'root'
     PASSWORD = 'root'
     HOSTNAME = '127.0.0.1'
@@ -17,6 +17,7 @@ class Config(object):
     REDIS_PORT = 6379
 
     # flask-session
+    # TODO: 将 session 保存在redis中
     # '''待补充'''
 
     # 数据库
