@@ -4,9 +4,20 @@
 from ronglian_sms_sdk import SmsSDK
 import json
 
-accId = '8a216da85741a1b901574fb0b1210982'
-accToken = '15fb1a43ed5c4ddb83531b7e544448c5'
-appId = '8a216da85741a1b901574fb0b17d0987'
+accId = '8a216da8762cb457017679db59e71ee1'      # 容联云通讯分配的主账号ID
+accToken = '3e1801e3ba494a29863c83127540bdfb'   # 容联云 主账号TOKEN
+appId = '8a216da8762cb457017679db5af91ee8'      # 容联云分配应用ID
+
+
+def send_message():
+    sdk = SmsSDK(accId, accToken, appId)
+    tid = '1'  # 短信模板ID 测试1
+    mobile = '13928646499'
+    # datas  验证码   过期时间 单位是分钟
+    datas = ('1234', '5')
+    resp = sdk.sendMessage(tid, mobile, datas)
+    result = json.loads(resp)
+    print(result)
 
 
 class CCP(object):
@@ -35,7 +46,7 @@ class CCP(object):
 
 
 if __name__ == '__main__':
-    # send_message()
-    c = CCP()
-    c.send_message('18646175116', ('1234', '5'), 1)
+    send_message()
+    # c = CCP()
+    # c.send_message('18646175116', ('1234', '5'), 1)
 
