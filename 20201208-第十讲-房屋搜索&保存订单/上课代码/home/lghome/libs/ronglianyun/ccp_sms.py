@@ -20,33 +20,57 @@ def send_message():
     print(result)
 
 
-class CCP(object):
-    """发送短信的单例类"""
-    # _instance = None
+# class CCP(object):
+#     """发送短信的单例类"""
+#     # _instance = None
+#
+#     def __new__(cls, *args, **kwargs):
+#         if not hasattr(cls, "_instance"):
+#             cls._instance = super().__new__(cls, *args, **kwargs)
+#             cls._instance.sdk = SmsSDK(accId, accToken, appId)
+#         return cls._instance
+#
+#     def send_message(self, mobile, datas, tid):
+#         sdk = self._instance.sdk
+#         # sdk = self.sdk
+#         # tid = '1'
+#         # mobile = '18646175116'
+#         # datas  验证码   过期时间 单位是分钟
+#         # datas = ('1234', '5')
+#         resp = sdk.sendMessage(tid, mobile, datas)
+#         result = json.loads(resp)
+#         if result['statusCode'] == '000000':
+#             return 0
+#         else:
+#             return -1
 
+class CCP(object):
+    """51.18"""
     def __new__(cls, *args, **kwargs):
-        if not hasattr(cls, "_instance"):
-            cls._instance = super().__new__(cls, *args, **kwargs)
-            cls._instance.sdk = SmsSDK(accId, accToken, appId)
-        return cls._instance
+        """
+        单例模式
+        __new__ 在实例化对象之前执行
+        hasattr() 结果返回T 或者 F
+        """
+        if not hasattr(cls, '_con'):
+            # TODO: 这里不太理解
+            cls._con = super().__new__(cls, *args, **kwargs)
+            cls._con.sdk = SmsSDK(accId, accToken, appId)
+
+        return cls._con
 
     def send_message(self, mobile, datas, tid):
-        sdk = self._instance.sdk
-        # sdk = self.sdk
-        # tid = '1'
-        # mobile = '18646175116'
-        # datas  验证码   过期时间 单位是分钟
-        # datas = ('1234', '5')
-        resp = sdk.sendMessage(tid, mobile, datas)
+        sdk = self._con.sdk
+        self.mobile = mobile
+        self.datas = datas
+        self.tid = tid
+        resp = sdk.sendMessage(self.tid, self.mobile, self.datas)
         result = json.loads(resp)
-        if result['statusCode'] == '000000':
-            return 0
-        else:
-            return -1
+        print(result)
 
 
 if __name__ == '__main__':
-    send_message()
-    # c = CCP()
-    # c.send_message('18646175116', ('1234', '5'), 1)
+    # send_message()
+    c = CCP()
+    c.send_message('13527676711', ('1234', '5'), 1)
 
