@@ -26,7 +26,7 @@ class Config(object):
 
     # 数据库
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{}:{}@{}:{}/{}'.format(USERNAME, PASSWORD, HOSTNAME, PORT, DATEBASE)
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = False  # 错误提示 所以设置为false以此减少开销，
 
 
 class DevConfig(Config):

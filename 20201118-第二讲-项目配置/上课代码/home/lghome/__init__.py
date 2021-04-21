@@ -16,13 +16,14 @@ db = SQLAlchemy()
 # 创建Redis
 redis_store = None
 
+
 # 日志
 def setup_log():
     # 设置日志的的登记  DEBUG调试级别
     logging.basicConfig(level=logging.DEBUG)
     # 创建日志记录器，设置日志的保存路径和每个日志的大小和日志的总大小
     # log 100M  log1  log
-    file_log_handler = RotatingFileHandler("logs/log.log", maxBytes=1024*1024*100,backupCount=100)
+    file_log_handler = RotatingFileHandler("logs/log.log", maxBytes=1024*1024*100, backupCount=100)
     # 创建日志记录格式，日志等级，输出日志的文件名 行数 日志信息
     formatter = logging.Formatter("%(levelname)s %(filename)s: %(lineno)d %(message)s")
     # 为日志记录器设置记录格式
@@ -43,7 +44,7 @@ def create_app(config_name):
     #     from config import ProConfig
     #     app.config.from_object(ProConfig)
 
-    config_class = config_map.get(config_name)
+    config_class = config_map.get(config_name)    # config_map 字典 用于区分环境
     app.config.from_object(config_class)
 
     # 使用app初始化db
@@ -60,11 +61,11 @@ def create_app(config_name):
     CSRFProtect(app)
 
     # 为flask添加自定义的转换器
-    app.url_map.converters['re'] = ReConverter
+    app.url_map.converters['re'] = ReConverter   # 自定义转换器ReConverter
 
     # 注册蓝图
     from lghome import api_1_0
-    app.register_blueprint(api_1_0.api)
+    app.register_blueprint(api_1_0.api)   # 参数应该是蓝图的名字，相当于注册这个蓝图
 
     # 注册静态文件蓝图
     from lghome import web_html

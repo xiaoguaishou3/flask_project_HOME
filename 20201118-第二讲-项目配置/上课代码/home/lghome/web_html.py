@@ -4,7 +4,7 @@
 # 提供静态文件的蓝图
 from flask import Blueprint, current_app
 
-html = Blueprint('web_html', __name__)
+html = Blueprint('web_html', __name__)  # 静态文件管理 favicon.ico代表图标图案
 
 # 127.0.0.1:5000/   访问首页
 # 127.0.0.1:5000/index.html   访问首页
@@ -12,6 +12,8 @@ html = Blueprint('web_html', __name__)
 # 路由转换
 
 
+# 需求：当访问对应的页面时，使用相应的静态文件展示页面
+# 127.0.0.1:5000/index.html
 @html.route("/<re('.*'):html_file_name>")
 def get_html(html_file_name):
     """提供HTML文件"""
